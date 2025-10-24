@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Trịnh Ngọc Hưng & Bí mật hồi quy — Mini Game</title>
+<style>
+  body{font-family:system-ui,Arial;background:url('./hat thoc anh.png'); background-position: center;background-size: 3%;background-repeat: repeat;margin:0;padding:20px;display:flex;flex-direction:column;align-items:center;}
+  .card{background:white;padding:18px;border-radius:12px;box-shadow:0 8px 30px rgba(3,30,60,0.08);max-width:760px;width:100%;}
+  h1{margin:0 0 8px;font-size:22px;}
+  p{line-height:1.5;color:#0c2c3a}
+  .scene{display:flex;gap:18px;align-items:center;margin-top:12px;}
+  .scene .left{flex:1;}
+  .scene .right{width:260px;text-align:center;}
+  .thoc{font-size:64px;user-select:none;}
+  button{padding:10px 14px;border-radius:10px;border:none;background:#2b8aef;color:white;font-weight:700;cursor:pointer;margin-top:8px;}
+  .secret{margin-top:12px;padding:12px;background:#fff8e6;border-left:4px solid #ffb020;border-radius:8px;}
+  .muted{color:#506575;font-size:13px;margin-top:8px;}
+  .bubble{background:#e8f7ff;padding:8px 12px;border-radius:999px;display:inline-block;margin-top:8px;}
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>Trịnh Ngọc Hưng tìm ra điều <em>vô cùng hay ho và bá đạo</em> về hồi quy</h1>
+    <p>Trong một chiều mưa nắng, Trịnh Ngọc Hưng lang thang với tách cà phê, suy nghĩ về dữ liệu. Bỗng nhiên cậu ấy nhìn thấy một đống điểm trên giấy — và “bật” ra một điều đơn giản nhưng kỳ diệu: <strong>đường thẳng tốt nhất là đường làm tổng bình phương sai số nhỏ nhất</strong>. Đó là bí mật — đơn giản mà cực kỳ hữu dụng!</p>
+
+    <div class="scene">
+      <div class="left">
+        <div class="bubble">Bí mật hồi quy: "Minimize the squares" → tối ưu a,b để tổng (y - (ax+b))^2 nhỏ nhất.</div>
+
+        <div style="margin-top:12px;">
+          <p><strong>Giải thích ngắn:</strong> Khi bạn có nhiều điểm dữ liệu (x,y), có vô số đường thẳng có thể vẽ. Phương pháp least squares cho phép ta tìm a và b sao cho tổng các sai số vuông (residual^2) là nhỏ nhất — kết quả là đường “trung bình tốt nhất” xuyên qua dữ liệu.</p>
+          <p class="muted">Ứng dụng: dự báo, ước lượng xu hướng, hiểu ảnh hưởng của biến x tới y.</p>
+        </div>
+
+        <div class="secret" id="secretBox">
+          <div><strong>Phát hiện "bá đạo" của Trịnh Ngọc Hưng:</strong></div>
+          <ol>
+            <li>Thay vì cố gắng hiểu từng điểm, hãy tìm a,b sao cho tổng sai số nhỏ nhất.</li>
+            <li>Đường thẳng đó là công cụ mạnh để dự báo và lý giải mối quan hệ.</li>
+            <li>Và điều bá đạo: <em>nó vẫn hoạt động tốt khi bạn hiểu cách kiểm soát nhiễu và dữ liệu x có đủ biến thiên</em>.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="right">
+        <div style="font-size:16px;color:#08326a;font-weight:700;">Mini-game nhặt thóc</div>
+        <div class="thoc" id="thocCount">🌾 0</div>
+        <button id="pickBtn">Nhặt 1 thóc cho Nguyễn Phương Anh</button>
+        <div class="muted">Mỗi lần Trịnh Ngọc Hưng làm 1 phép tính hồi quy thành công, cậu ấy sẽ nhặt 1 thóc và mang cho Phương Anh.</div>
+        <button id="revealBtn" style="background:#2ec27e;margin-top:12px;">Trịnh Ngọc Hưng áp dụng bí mật → nhặt thêm 5 thóc</button>
+      </div>
+    </div>
+
+    <div style="margin-top:14px;">
+      <p><strong>Kết:</strong> Trịnh Ngọc Hưng hiểu được rằng công cụ toán học đơn giản có thể tạo ra giá trị lớn — và thế là cậu ấy mang những "kết quả" ấy (tượng trưng là thóc) để giúp đỡ Phương Anh. Bạn có thể nhấn nút để giúp Trịnh Ngọc Hưng nhặt thóc tiếp nhé!</p>
+    </div>
+  </div>
+
+<script>
+  let count = 0;
+  const thocEl = document.getElementById('thocCount');
+  document.getElementById('pickBtn').addEventListener('click', ()=>{
+    count += 1;
+    thocEl.textContent = "🌾 " + count;
+    // little animation
+    thocEl.style.transform = 'scale(1.12)';
+    setTimeout(()=> thocEl.style.transform = 'scale(1)',160);
+  });
+  document.getElementById('revealBtn').addEventListener('click', ()=>{
+    // reveal special effect: add 5
+    count += 5;
+    thocEl.textContent = "🌾 " + count;
+    document.getElementById('secretBox').style.background = '#fff1ff';
+    setTimeout(()=> document.getElementById('secretBox').style.background = '#fff8e6', 900);
+  });
+</script>
+</body>
+</html>
